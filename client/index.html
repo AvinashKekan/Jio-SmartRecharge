@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#123fc7">
+  <meta name="description" content="Jio SmartRecharge — compare Prepaid, Postpaid, JioFiber, and AirFiber plans with clear daily cost">
+  <title>Jio | Mobile, Fiber &amp; Postpaid Plans</title>
+  <link rel="icon" href="assets/jio-logo.png">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="config.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="wrap header-row">
+      <a class="brand" href="#top">
+        <img src="assets/jio-logo.png" alt="Jio">
+        <span>Jio <span>SmartRecharge</span><small>PLANS MADE SIMPLE</small></span>
+      </a>
+      <nav>
+        <a class="active" href="#catalogue">All Plans</a>
+        <a href="#insights">Plan Finder</a>
+        <a href="#why">Why it matters</a>
+        <a href="#how">How it works</a>
+      </nav>
+      <div class="header-actions">
+        <button id="historyBtn" class="link-btn">Recharge history</button>
+        <button id="accountBtn" class="profile-btn" aria-label="Profile" title="Profile / Sign in">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 12a4.5 4.5 0 1 0-4.5-4.5A4.5 4.5 0 0 0 12 12Zm0 2.25c-4.14 0-7.5 2.02-7.5 4.5V20h15v-1.25c0-2.48-3.36-4.5-7.5-4.5Z"/>
+          </svg>
+        </button>
+        <button id="menuBtn" class="menu" aria-label="Menu">☰</button>
+      </div>
+    </div>
+    <div class="subnav">
+      <div class="wrap subnav-row">
+        <a class="active" href="#top">Discover</a>
+        <a href="#catalogue">All Recharges</a>
+        <a href="#catalogue" data-cat="popular">Prepaid</a>
+        <a href="#catalogue" data-cat="postpaid">Postpaid</a>
+        <a href="#catalogue" data-cat="fiber">JioFiber &amp; AirFiber</a>
+        <a href="#catalogue" data-cat="true-5g">True 5G</a>
+        <a href="#catalogue" data-cat="entertainment">Entertainment</a>
+        <a href="#catalogue" data-cat="data-packs">Data Packs</a>
+        <span>TRANSPARENT PRICING</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-row">
+        <div class="hero-copy">
+          <b class="eyebrow light">JIO RECHARGE &amp; BILLS · ONE PLACE</b>
+          <h1>The right Jio plan.<br>Without the guesswork.</h1>
+          <p>Compare Prepaid, Postpaid, JioFiber, and AirFiber plans in one place—with clear daily cost, monthly cost, and data value shown upfront.</p>
+          <a class="hero-cta" href="#catalogue">Explore all plans <b>→</b></a>
+          <div class="proof">✓ Daily cost on every card　 ✓ All Jio services in one place　 ✓ Honest side-by-side compare</div>
+        </div>
+        <div class="hero-visual">
+          <div class="phone">
+            <div class="phone-brand">Jio <i>TRUE5G</i></div>
+            <strong>₹349</strong>
+            <div class="phone-day">₹12.46 / day</div>
+            <p>28 Days · Unlimited calls</p>
+            <div class="data"><b>2 GB</b><span>daily data</span></div>
+            <div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="float-note">↗ <span><b>See your daily cost</b><small>No hidden math needed</small></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalogue wrap" id="catalogue">
+      <aside class="side">
+        <h3>Recharge &amp; Bill Types</h3>
+        <p>Choose a service or category</p>
+        <div id="categories">
+          <button class="cat active" data-cat="all">All Plans</button>
+          <button class="cat" data-cat="popular">Prepaid Popular</button>
+          <button class="cat" data-cat="postpaid">Postpaid Mobile</button>
+          <button class="cat" data-cat="fiber">JioFiber &amp; AirFiber</button>
+          <button class="cat" data-cat="true-5g">True 5G Plans</button>
+          <button class="cat" data-cat="annual">Annual Plans</button>
+          <button class="cat" data-cat="entertainment">Entertainment</button>
+          <button class="cat" data-cat="data-packs">Data Packs</button>
+          <button class="cat" data-cat="international-roaming">International Roaming</button>
+        </div>
+        <div class="tip">
+          <b>Not sure what to pick?</b>
+          <p>Tell us your daily data need and budget to get a clear recommendation.</p>
+          <a href="#insights">Find my plan →</a>
+        </div>
+      </aside>
+
+      <div class="catalogue-main">
+        <div class="section-head">
+          <div>
+            <b class="eyebrow">ALL JIO SERVICES</b>
+            <h2>Explore plans with full clarity</h2>
+            <p>Every card shows daily cost, monthly cost, and data value so you always know what you pay for.</p>
+          </div>
+          <button id="filterBtn" class="filter-btn">☷ Filters &amp; sort</button>
+        </div>
+
+        <div class="toolbar">
+          <label class="search">⌕ <input id="search" maxlength="100" placeholder="Search price, fiber, postpaid, data, OTT…"></label>
+          <label class="sort">Sort by
+            <select id="sort">
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+              <option value="validity">Longest validity</option>
+              <option value="data">Most data</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="filters" class="filters" hidden>
+          <label>Minimum price <input id="minPrice" type="number" min="0" max="100000" value="0"></label>
+          <label>Maximum price <input id="maxPrice" type="number" min="0" max="100000" value="5000"></label>
+          <label class="check"><input id="only5g" type="checkbox"> True 5G only</label>
+          <button id="reset" class="outline small">Reset</button>
+        </div>
+
+        <div class="result-meta">
+          <span id="count">Loading plans…</span>
+          <span>All costs broken down clearly</span>
+        </div>
+
+        <div id="plans" class="plan-grid">
+          <div class="loading">Loading recharge plans…</div>
+        </div>
+        <div id="empty" class="empty" hidden>No plans found. Try changing your search or filters.</div>
+        <div id="pages" class="pages"></div>
+      </div>
+    </section>
+
+    <section class="insights" id="insights">
+      <div class="wrap">
+        <div class="intro">
+          <b class="eyebrow">PLAN FINDER</b>
+          <h2>Find a plan that fits your routine.</h2>
+          <p>Tell us how much data you use and your monthly budget—we'll show the best-value options and explain why.</p>
+        </div>
+        <div class="insight-grid">
+          <form id="recommendForm" class="matcher">
+            <h3>✦ Personal Plan Finder</h3>
+            <p>Tailored to your daily usage and budget</p>
+            <div class="form-grid">
+              <label>Daily data needed
+                <input id="daily" type="number" min="0.1" max="100" step="0.1" value="2" required>
+                <small>GB per day</small>
+              </label>
+              <label>Monthly budget
+                <input id="budget" type="number" min="1" max="100000" value="500" required>
+                <small>INR</small>
+              </label>
+              <label>Preferred validity
+                <select id="validity">
+                  <option value="28">28 days</option>
+                  <option value="56">56 days</option>
+                  <option value="84">84 days</option>
+                  <option value="365">365 days</option>
+                </select>
+              </label>
+              <label class="check"><input id="need5g" type="checkbox"> I need True 5G support</label>
+            </div>
+            <button class="primary full" id="recommendSubmit">Show best plans →</button>
+            <p id="recommendError" class="error"></p>
+            <div id="recommendations"></div>
+          </form>
+
+          <div class="explainer">
+            <b class="eyebrow light">FULL TRANSPARENCY</b>
+            <h3>Know the real value before you pay.</h3>
+            <p>Instead of making you calculate 28-day vs. 84-day or broadband prices in your head, we show all four key numbers on every plan.</p>
+            <div class="metrics">
+              <div><b>01</b>Cost per day</div>
+              <div><b>02</b>Cost per GB</div>
+              <div><b>03</b>Total data</div>
+              <div><b>04</b>Monthly cost (30 days)</div>
+            </div>
+            <small>Clear pricing helps every customer pick the right plan with zero surprises.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="compare wrap">
+      <div class="section-head">
+        <div>
+          <b class="eyebrow">SIDE-BY-SIDE</b>
+          <h2>Compare plans easily</h2>
+          <p>Pick up to three plans to compare daily cost, monthly cost, and benefits.</p>
+        </div>
+        <span id="compareCount">0 / 3 selected</span>
+      </div>
+      <div id="comparison" class="compare-empty">Tap Compare on any plan card to see them side by side.</div>
+    </section>
+
+    <section class="why-band" id="why">
+      <div class="wrap">
+        <div class="why-head">
+          <b class="eyebrow">WHY CLARITY MATTERS</b>
+          <h2>Built for Jio’s scale. Made for everyday convenience.</h2>
+          <p>Jio connects crores of Indians to 4G, True 5G, and home broadband. Making plan value easy to understand saves customers time and builds lasting trust.</p>
+        </div>
+        <div class="why-grid">
+          <article class="why-card">
+            <b>49.89 Cr</b>
+            <strong>Active Jio Users</strong>
+            <small>Nearly every Jio connection (99%) is used daily across cities, towns, and villages (TRAI, 2026).</small>
+          </article>
+          <article class="why-card">
+            <b>30+ Cr</b>
+            <strong>True 5G Users</strong>
+            <small>Over half of Jio customers are on 5G, making clear 5G eligibility and daily data matching truly helpful.</small>
+          </article>
+          <article class="why-card">
+            <b>44.2 GB</b>
+            <strong>Monthly Data / User</strong>
+            <small>With people using ~1.5 GB a day, showing cost per day and cost per GB helps avoid overpaying.</small>
+          </article>
+          <article class="why-card">
+            <b>12 vs 13</b>
+            <strong>Recharges a Year</strong>
+            <small>Showing the daily and 30-day cost of 28-day, 84-day, and 365-day packs removes confusion at checkout.</small>
+          </article>
+        </div>
+        <p class="why-note">Source: TRAI &amp; Jio Platforms reports (Sept 2026).</p>
+      </div>
+    </section>
+
+    <section class="how wrap" id="how">
+      <div class="shield">✓</div>
+      <h2>Simple, honest, and fast.</h2>
+      <p>Everything you need to pick and complete your Jio recharge in three easy steps.</p>
+      <div class="steps">
+        <div><b>01</b><strong>Explore</strong><small>Browse Prepaid, Postpaid, Fiber, and 5G plans with daily cost upfront.</small></div>
+        <div><b>02</b><strong>Compare</strong><small>Check daily cost, monthly cost, and total data side by side.</small></div>
+        <div><b>03</b><strong>Recharge</strong><small>Pay or save your plan in seconds with complete clarity.</small></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer">
+      <a class="brand" href="#top">
+        <img src="assets/jio-logo.png" alt="Jio">
+        <span>Jio <span>SmartRecharge</span><small>PLANS MADE SIMPLE</small></span>
+      </a>
+      <p>© <span id="year"></span> Jio SmartRecharge · Independent portfolio developed by Avinash Kekan · Illustrative plans &amp; simulated checkout only (no real payments)</p>
+    </div>
+  </footer>
+
+  <div id="modal" class="backdrop" hidden>
+    <section class="modal" role="dialog" aria-modal="true">
+      <button id="closeModal" class="close" aria-label="Close">×</button>
+      <div id="modalBody"></div>
+    </section>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+</body>
+</html>

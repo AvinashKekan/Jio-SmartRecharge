@@ -1,0 +1,51 @@
+openapi: 3.0.3
+info:
+  title: Smart Recharge API
+  version: 1.0.0
+  description: Illustrative prepaid plan discovery and demo recharge API.
+servers:
+  - url: http://localhost:4000/api/v1
+paths:
+  /health:
+    get:
+      summary: Health check
+      responses:
+        "200": { description: API is healthy }
+  /plans:
+    get:
+      summary: List plans
+      parameters:
+        - in: query
+          name: search
+          schema: { type: string }
+        - in: query
+          name: category
+          schema: { type: string }
+        - in: query
+          name: maxPrice
+          schema: { type: integer }
+        - in: query
+          name: sort
+          schema: { type: string, enum: [price-asc, price-desc, validity, data] }
+      responses:
+        "200": { description: Paginated plan catalogue }
+  /auth/register:
+    post:
+      summary: Register account
+      responses:
+        "201": { description: Account created }
+  /auth/login:
+    post:
+      summary: Login
+      responses:
+        "200": { description: Authenticated session cookie set }
+  /recommendations:
+    post:
+      summary: Rank plans by customer preferences
+      responses:
+        "200": { description: Explainable recommendation results }
+  /recharges/simulate:
+    post:
+      summary: Save a simulated recharge
+      responses:
+        "201": { description: Demo transaction saved }

@@ -1,0 +1,30 @@
+import { Router } from "express";
+import { z } from "zod";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { prisma } from "../../lib/prisma";
+import { env } from "../../config/env";
+import { requireAuth } from "../../middleware/auth";
+const router=Router();
+const credentials=z.object({name:z.string().min(2).max(80).optional(),email:z.string().email().max(254),password:z.string().min(10).max(100)});
+const cookieOptions={httpOnly:true,sameSite:"lax" as const,secure:env.NODE_ENV==="production",path:"/"};
+router.post("/register",async(req,res,next)=>{try{
+ const input=credentials.extend({name:z.string().min(2).max(80)}).parse(req.body);
+ const exists=await prisma.user.findUnique({where:{email:input.email.toLowerCase()}});
+ if(exists)return res.status(409).json({error:"Email already registered"});
+ const user=await prisma.user.create({data:{name:input.name,email:input.email.toLowerCase(),passwordHash:await bcrypt.hash(input.password,12)}});
+ const token=jwt.sign({},env.JWT_SECRET,{subject:user.id,expiresIn:"2h"});
+ res.cookie("sr_token",token,{...cookieOptions,maxAge:2*60*60*1000});
+ res.status(201).json({user:{id:user.id,name:user.name,email:user.email}});
+}catch(e){next(e)}});
+router.post("/login",async(req,res,next)=>{try{
+ const input=credentials.omit({name:true}).parse(req.body);
+ const user=await prisma.user.findUnique({where:{email:input.email.toLowerCase()}});
+ if(!user||!(await bcrypt.compare(input.password,user.passwordHash)))return res.status(401).json({error:"Invalid email or password"});
+ const token=jwt.sign({},env.JWT_SECRET,{subject:user.id,expiresIn:"2h"});
+ res.cookie("sr_token",token,{...cookieOptions,maxAge:2*60*60*1000});
+ res.json({user:{id:user.id,name:user.name,email:user.email}});
+}catch(e){next(e)}});
+router.post("/logout",(_req,res)=>{res.clearCookie("sr_token",cookieOptions);res.json({success:true})});
+router.get("/me",requireAuth,async(req,res,next)=>{try{const user=await prisma.user.findUnique({where:{id:req.userId},select:{id:true,name:true,email:true}});res.json({user})}catch(e){next(e)}});
+export default router;
